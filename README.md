@@ -1,6 +1,6 @@
 Deze game is gebaseerd op het template voor 4HV van het Emmauscollege Rotterdam
 
-## Mijn spel: *naam van het spel*
+## Mijn spel: *Candy Crusher*
 Gemaakt door:
 - Sophie Kuo
 - Danica de Kreij
@@ -11,17 +11,24 @@ Basis: uitleg, spelen, afgaan en punten
 - [x] maak index.html, style.css en script.js met canvas
 - [ ] teken speler
 - [ ] beweeg speler
-- [ ] ... *(vul zelf aan)*
+- [ ] teken vijand
+- [ ] beweeg vijand
+- [ ] laat speler schieten
+- [ ] laat vijand schieten
+- [ ] speler gaat dood als hij wordt geraakt
+- [ ] maak levensbalk
+- [ ] als vijand wordt geraakt stukje van levensbalk
+- [ ] maak een game over scherm
 - [ ] punten op scherm zetten
 - [ ] punten kunnen scoren
 - [ ] uitlegscherm
 
-Uitbreiding: *bedenk iets, bijvoorbeeld meer tegenstanders*
+Uitbreiding: meer tegenstanders en final boss
 - [ ] *later uitwerken*
 - [ ] *later uitwerken*
 - [ ] *later uitwerken*
 
-Uitbreiding: *bedenk iets, bijvoorbeeld bewegende achtergrond*
+Uitbreiding: bewegende achtergrond
 - [ ] *later uitwerken*
 - [ ] *later uitwerken*
 - [ ] *later uitwerken*
