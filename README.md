@@ -16,8 +16,7 @@ Basis: uitleg, spelen, afgaan en punten
 - [ ] laat speler schieten
 - [ ] laat vijand schieten
 - [ ] speler gaat dood als hij wordt geraakt
-- [ ] maak levensbalk
-- [ ] als vijand wordt geraakt stukje van levensbalk
+- [ ] vijand verdwijnt als hij wordt geraakt
 - [ ] maak een game over scherm
 - [ ] punten op scherm zetten
 - [ ] punten kunnen scoren
@@ -28,7 +27,7 @@ Uitbreiding: meer tegenstanders en final boss
 - [ ] *later uitwerken*
 - [ ] *later uitwerken*
 
-Uitbreiding: bewegende achtergrond
+Uitbreiding: levensbalk van vijand
 - [ ] *later uitwerken*
 - [ ] *later uitwerken*
 - [ ] *later uitwerken*
