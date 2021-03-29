@@ -37,7 +37,7 @@ Uitbreiding: levensbalk van vijand
 - [ ] levensbalk tekenen
 - [ ] levensbalk leeg laten lopen
 - [ ] vijand gaat dood bij lege levensbalk
-- [ ] tegenstanders levensbalk geven
+- [ ] tegenstanders levensbalken geven
 - [ ] final boss levensbalk
 
 ## Credits
