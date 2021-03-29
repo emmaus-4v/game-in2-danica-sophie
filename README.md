@@ -28,9 +28,11 @@ Uitbreiding: meer tegenstanders en final boss
 - [ ] *later uitwerken*
 
 Uitbreiding: levensbalk van vijand
-- [ ] *later uitwerken*
-- [ ] *later uitwerken*
-- [ ] *later uitwerken*
+- [ ] levensbalk tekenen
+- [ ] levensbalk leeg laten lopen
+- [ ] vijand gaat dood bij lege levensbalk
+- [ ] tegenstanders levensbalk geven
+- [ ] final boss levensbalk
 
 ## Credits
 - Game template van het Emmauscollege Rotterdam https://github.com/emmauscollege/4HV-game-template
