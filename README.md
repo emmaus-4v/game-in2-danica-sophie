@@ -23,9 +23,15 @@ Basis: uitleg, spelen, afgaan en punten
 - [ ] uitlegscherm
 
 Uitbreiding: meer tegenstanders en final boss
-- [ ] *later uitwerken*
-- [ ] *later uitwerken*
-- [ ] *later uitwerken*
+- [ ] teken 2e vijand
+- [ ] teken 3e vijand enz. enz.
+- [ ] laat de extra vijanden bewegen
+- [ ] laat de vijanden schieten
+- [ ] laat de vijanden verdwijnen als ze worden geraakt
+- [ ] teken de final boss 
+- [ ] laat de final boss bewegen
+- [ ] laat de final boss schieten
+
 
 Uitbreiding: levensbalk van vijand
 - [ ] levensbalk tekenen
