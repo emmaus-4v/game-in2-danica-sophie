@@ -82,6 +82,7 @@ var tekenKogel = function(x, y) {
 var tekenSpeler = function(x, y) {
   fill("pink");
   ellipse(x, y, 50, 50);
+  rect(x, y, 50, 50);
 };
 
 
@@ -106,7 +107,7 @@ var beweegKogel = function() {
  * Updatet globale variabele spelerX en spelerY
  */
 var beweegSpeler = function() {
-
+    
 };
 
 
@@ -163,6 +164,8 @@ function setup() {
 function draw() {
   switch (spelStatus) {
     case SPELEN:
+      background(200, 200, 200);
+      tekenVeld();
       beweegVijand();
       beweegKogel();
       beweegSpeler();
@@ -177,10 +180,10 @@ function draw() {
         // eventueel: nieuwe speler maken
       }
 
-      tekenVeld();
+      
       tekenVijand(vijandX, vijandY);
       tekenKogel(kogelX, kogelY);
-      tekenSpeler(spelerX, spelerY);
+      tekenSpeler(mouseX, mouseY);
 
       if (checkGameOver()) {
         spelStatus = GAMEOVER;
