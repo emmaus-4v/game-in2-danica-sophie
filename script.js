@@ -162,7 +162,7 @@ function setup() {
 function draw() {
   switch (spelStatus) {
     case SPELEN:
-      background(200, 200, 200);
+      background(200, 10, 200);
       tekenVeld();
       beweegVijand();
       beweegKogel();
