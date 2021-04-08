@@ -58,7 +58,7 @@ var tekenVeld = function () {
  */
 var tekenVijand = function(x, y) {
     fill ('black');
-    ellipse (150, 200, 50, 50);
+    ellipse (x, y, 50, 50);
 
 };
 
@@ -89,7 +89,7 @@ var tekenSpeler = function(x, y) {
  * Updatet globale variabelen met positie van vijand of tegenspeler
  */
 var beweegVijand = function() {
-    
+    vijandX = vijandX +1;
 };
 
 
