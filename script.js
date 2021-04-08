@@ -88,8 +88,17 @@ var tekenSpeler = function(x, y) {
 /**
  * Updatet globale variabelen met positie van vijand of tegenspeler
  */
+
 var beweegVijand = function() {
-    vijandX = vijandX +1;
+    if (vijandX > 380) {
+        vijandX = vijandX - 10;
+    }
+
+    if (vijandX < 0){
+        vijandX = vijandX + 10;
+    }
+    
+    vijandY = 50;
 };
 
 
