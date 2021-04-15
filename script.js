@@ -116,6 +116,18 @@ var beweegKogel = function() {
  */
 var beweegSpeler = function() {
     
+    if (keyIsDown(37)) {
+        spelerX = spelerX - 4;
+    }
+    if (keyIsDown(39)) {
+        spelerX = spelerX + 4;
+    }
+    if (keyIsDown(38)) {
+        spelerY = spelerY - 4;
+    }
+    if (keyIsDown(40)) {
+        spelerY = spelerY + 4;
+    }
 };
 
 
@@ -191,7 +203,7 @@ function draw() {
       
       tekenVijand(vijandX, vijandY);
       tekenKogel(kogelX, kogelY);
-      tekenSpeler(mouseX, mouseY);
+      tekenSpeler(spelerX, spelerY);
 
       if (checkGameOver()) {
         spelStatus = GAMEOVER;
