@@ -69,7 +69,7 @@ var tekenVijand = function(x, y) {
  * @param {number} y y-coördinaat
  */
 var tekenKogel = function(x, y) {
-
+    ellipse (x, y, 10, 10);
 
 };
 
@@ -106,7 +106,9 @@ var beweegVijand = function() {
  * Updatet globale variabelen met positie van kogel of bal
  */
 var beweegKogel = function() {
+    if (keyIsDown(32)) {
 
+    };
 };
 
 
