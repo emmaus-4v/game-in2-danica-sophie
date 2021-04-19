@@ -116,16 +116,16 @@ var beweegKogel = function() {
  */
 var beweegSpeler = function() {
     
-    if (keyIsDown(37)) {
+    if (keyIsDown(37) && spelerX > 20) {
         spelerX = spelerX - 4;
     }
-    if (keyIsDown(39)) {
+    if (keyIsDown(39) && spelerX < 1208) {
         spelerX = spelerX + 4;
     }
-    if (keyIsDown(38)) {
+    if (keyIsDown(38) && spelerY > 20) {
         spelerY = spelerY - 4;
     }
-    if (keyIsDown(40)) {
+    if (keyIsDown(40) && spelerY < 648) {
         spelerY = spelerY + 4;
     }
 };
