@@ -28,7 +28,7 @@ var spelerY = 100; // y-positie van speler
 var kogelX = 0;    // x-positie van kogel
 var kogelY = 0;    // y-positie van kogel
 
-var vijandX = 0;   // x-positie van vijand
+var vijandX = 50;   // x-positie van vijand
 var vijandY = 0;   // y-positie van vijand
 
 var score = 0; // aantal behaalde punten
@@ -90,12 +90,12 @@ var tekenSpeler = function(x, y) {
  */
 
 var beweegVijand = function() {
-    if (vijandX > 380) {
-        vijandX = vijandX - 10;
+    if (vijandX < 1200){
+        vijandX = vijandX + 20;
     }
 
-    if (vijandX < 0){
-        vijandX = vijandX + 10;
+    if (vijandX >= 1200) {
+        vijandX = vijandX - 20;
     }
     
     vijandY = 60;
