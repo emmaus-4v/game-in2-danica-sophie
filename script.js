@@ -99,7 +99,7 @@ var beweegVijand = function() {
         vijandX = vijandX + 10;
     }
     
-    vijandY = 50;
+    vijandY = 60;
 };
 
 
