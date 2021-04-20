@@ -69,6 +69,7 @@ var tekenVijand = function(x, y) {
  * @param {number} y y-coördinaat
  */
 var tekenKogel = function(x, y) {
+    fill ('black');
     ellipse (x, y, 10, 10);
 
 };
@@ -81,8 +82,8 @@ var tekenKogel = function(x, y) {
  */
 var tekenSpeler = function(x, y) {
   fill("pink");
-  rect(x, y, 50, 50);
-};
+  ellipse(x, y, 50, 50);
+} ;
 
 
 /**
@@ -107,9 +108,11 @@ var beweegVijand = function() {
  */
 var beweegKogel = function() {
     if (keyIsDown(32)) {
-
+        tekenKogel(kogelX = spelerX, kogelY = spelerY);
+        
     };
-};
+    kogelY = kogelY - 6;
+} ;
 
 
 /**
