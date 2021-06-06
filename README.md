@@ -12,9 +12,9 @@ Basis: uitleg, spelen, afgaan en punten
 - [x] teken speler
 - [x] beweeg speler
 - [x] teken vijand
-- [ ] beweeg vijand
+- [x] beweeg vijand
 - [ ] laat speler schieten
-- [ ] laat vijand schieten
+- [x] laat vijand schieten
 - [ ] speler gaat dood als hij wordt geraakt
 - [ ] vijand verdwijnt als hij wordt geraakt
 - [ ] maak een game over scherm

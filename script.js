@@ -33,7 +33,7 @@ var vijandY = 0;   // y-positie van vijand
 
 var score = 0; // aantal behaalde punten
 
-
+var speed = 5;
 
 
 
@@ -91,14 +91,14 @@ var tekenSpeler = function(x, y) {
  */
 
 var beweegVijand = function() {
-    if (vijandX < 1200){
-        vijandX = vijandX + 20;
-    }
-
-    if (vijandX >= 1200) {
-        vijandX = vijandX - 20;
+    if (vijandX < 100) {
+        speed = 6
     }
     
+    if (vijandX > 1200) {
+        speed = -6
+    }
+    vijandX = vijandX + speed;
     vijandY = 60;
 };
 
@@ -111,7 +111,7 @@ var beweegKogel = function() {
         tekenKogel(kogelX = spelerX, kogelY = spelerY);
         
     };
-    kogelY = kogelY - 6;
+    kogelY = kogelY - 8;
 } ;
 
 
@@ -122,16 +122,16 @@ var beweegKogel = function() {
 var beweegSpeler = function() {
     
     if (keyIsDown(37) && spelerX > 20) {
-        spelerX = spelerX - 4;
+        spelerX = spelerX - 6;
     }
     if (keyIsDown(39) && spelerX < 1208) {
-        spelerX = spelerX + 4;
+        spelerX = spelerX + 6;
     }
     if (keyIsDown(38) && spelerY > 20) {
-        spelerY = spelerY - 4;
+        spelerY = spelerY - 6;
     }
     if (keyIsDown(40) && spelerY < 648) {
-        spelerY = spelerY + 4;
+        spelerY = spelerY + 6;
     }
 };
 
