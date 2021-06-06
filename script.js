@@ -20,7 +20,7 @@
 const UITLEG = 0;
 const SPELEN = 1;
 const GAMEOVER = 2;
-var spelStatus = SPELEN;
+var spelStatus = UITLEG;
 
 var spelerX = 200; // x-positie van speler
 var spelerY = 100; // y-positie van speler
@@ -141,9 +141,7 @@ var beweegSpeler = function() {
  * @returns {boolean} true als vijand is geraakt
  */
 var checkVijandGeraakt = function() {
-if(kogelX = vijandX) {
-    vijandX = 1400
-}
+
   return false;
 };
 
@@ -190,6 +188,19 @@ function setup() {
  */
 function draw() {
   switch (spelStatus) {
+
+    case UITLEG:
+    background('white');
+    textSize(30);
+        text('Gebruik de pijltjes toetsen om de bewegen', 420, 300, 500, 400)
+        text('Gerbuik de spatie toets om te schieten', 400, 400, 700, 300)
+        text('Klik enter om te starten', 500, 500, 500, 500)
+
+        if (keyIsDown(13)) {
+            spelStatus = SPELEN
+        };
+
+        break;
     case SPELEN:
       background(200, 10, 200);
       tekenVeld();
