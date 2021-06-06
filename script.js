@@ -29,7 +29,7 @@ var kogelX = 0;    // x-positie van kogel
 var kogelY = 0;    // y-positie van kogel
 
 var vijandX = 50;   // x-positie van vijand
-var vijandY = 0;   // y-positie van vijand
+var vijandY = 60;   // y-positie van vijand
 
 var score = 0; // aantal behaalde punten
 
@@ -99,7 +99,7 @@ var beweegVijand = function() {
         vijandX = vijandX - 20;
     }
     
-    vijandY = 60;
+    
 };
 
 
@@ -141,7 +141,7 @@ var beweegSpeler = function() {
  * @returns {boolean} true als vijand is geraakt
  */
 var checkVijandGeraakt = function() {
-
+if(kogelX = vijandX)
   return false;
 };
 
