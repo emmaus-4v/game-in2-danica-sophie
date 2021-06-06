@@ -141,9 +141,7 @@ var beweegSpeler = function() {
  * @returns {boolean} true als vijand is geraakt
  */
 var checkVijandGeraakt = function() {
-if(kogelX = vijandX) {
-    vijandX = 1400
-}
+
   return false;
 };
 
