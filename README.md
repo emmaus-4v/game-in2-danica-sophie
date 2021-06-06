@@ -13,14 +13,14 @@ Basis: uitleg, spelen, afgaan en punten
 - [x] beweeg speler
 - [x] teken vijand
 - [x] beweeg vijand
-- [ ] laat speler schieten
-- [x] laat vijand schieten
+- [x] laat speler schieten
+- [ ] laat vijand schieten
 - [ ] speler gaat dood als hij wordt geraakt
 - [ ] vijand verdwijnt als hij wordt geraakt
-- [ ] maak een game over scherm
+- [x] maak een game over scherm
 - [ ] punten op scherm zetten
 - [ ] punten kunnen scoren
-- [ ] uitlegscherm
+- [x] uitlegscherm
 
 Uitbreiding: meer tegenstanders en final boss
 - [ ] teken 2e vijand
@@ -31,14 +31,6 @@ Uitbreiding: meer tegenstanders en final boss
 - [ ] teken de final boss 
 - [ ] laat de final boss bewegen
 - [ ] laat de final boss schieten
-
-
-Uitbreiding: levensbalk van vijand
-- [ ] levensbalk tekenen
-- [ ] levensbalk leeg laten lopen
-- [ ] vijand gaat dood bij lege levensbalk
-- [ ] tegenstanders levensbalken geven
-- [ ] final boss levensbalk
 
 ## Credits
 - Game template van het Emmauscollege Rotterdam https://github.com/emmauscollege/4HV-game-template

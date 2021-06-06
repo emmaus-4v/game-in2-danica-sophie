@@ -253,7 +253,12 @@ function draw() {
       break;
 
       case GAMEOVER:
-
+        background('white')
+        text('GAMEOVER', 200, 200, 200, 200);
       break;
+
+      if (keyIsDown(13)) {
+          spelStatus = UITLEG
+      };
   }
 }
