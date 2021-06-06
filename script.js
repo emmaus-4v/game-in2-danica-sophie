@@ -28,6 +28,9 @@ var spelerY = 100; // y-positie van speler
 var kogelX = 0;    // x-positie van kogel
 var kogelY = 0;    // y-positie van kogel
 
+var vijandkogelX = 0;   // x-positie van vijandkogel
+var vijandkogelY = 0;   // y-positie van vijandkogel
+
 var vijandX = 50;   // x-positie van vijand
 var vijandY = 60;   // y-positie van vijand
 
@@ -87,6 +90,17 @@ var tekenSpeler = function(x, y) {
 
 
 /**
+ * Tekent de vijandkogel
+ * @param {number} x x-coördinaat
+ * @param {number} y y-coördinaat
+ */
+var tekenvijandKogel = function(x, y) {
+    fill('red');
+    ellipse (x, y, 10, 10);
+}
+
+
+/**
  * Updatet globale variabelen met positie van vijand of tegenspeler
  */
 
@@ -113,6 +127,13 @@ var beweegKogel = function() {
     };
     kogelY = kogelY - 8;
 } ;
+
+var vijandKogel = function () {
+    if (spelStatus = SPELEN) {
+        tekenvijandKogel(vijandkogelX = vijandX, vijandkogelY = vijandY);
+    };
+    vijandkogelY = vijandkogelY + 8;
+}
 
 
 /**
@@ -192,20 +213,22 @@ function draw() {
     case UITLEG:
     background('white');
     textSize(30);
-        text('Gebruik de pijltjes toetsen om de bewegen', 420, 300, 500, 400)
-        text('Gerbuik de spatie toets om te schieten', 400, 400, 700, 300)
-        text('Klik enter om te starten', 500, 500, 500, 500)
+    text('Gebruik de pijltjes toetsen om de bewegen', 420, 300, 500, 400)
+    text('Gerbuik de spatie toets om te schieten', 400, 400, 700, 300)
+    text('Klik enter om te starten', 500, 500, 500, 500)
 
-        if (keyIsDown(13)) {
-            spelStatus = SPELEN
-        };
+    if (keyIsDown(13)) {
+        spelStatus = SPELEN
+    };
 
-        break;
+    break;
+
     case SPELEN:
       background(200, 10, 200);
       tekenVeld();
       beweegVijand();
       beweegKogel();
+      vijandKogel();
       beweegSpeler();
       
       if (checkVijandGeraakt()) {
@@ -222,10 +245,15 @@ function draw() {
       tekenVijand(vijandX, vijandY);
       tekenKogel(kogelX, kogelY);
       tekenSpeler(spelerX, spelerY);
+      tekenvijandKogel(vijandkogelX, vijandkogelY);
 
       if (checkGameOver()) {
         spelStatus = GAMEOVER;
       }
+      break;
+
+      case GAMEOVER:
+
       break;
   }
 }
