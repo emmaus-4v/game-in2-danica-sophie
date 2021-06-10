@@ -152,7 +152,7 @@ var vijandkogels = []
 var lastkogelDT2 = Date.now()
 var vijandKogel = function(vijandkogels = []) {
     
-    if (keyIsDown(32)) {
+    if (vijandX > 100) {
         if (vijandkogels.length == 0 || (Date.now() - lastkogelDT2 > 250)) {
             var vijandkogel = [vijandX, vijandY]
             vijandkogels.push(vijandkogel)
