@@ -14,7 +14,7 @@ Basis: uitleg, spelen, afgaan en punten
 - [x] teken vijand
 - [x] beweeg vijand
 - [x] laat speler schieten
-- [ ] laat vijand schieten
+- [x] laat vijand schieten
 - [ ] speler gaat dood als hij wordt geraakt
 - [ ] vijand verdwijnt als hij wordt geraakt
 - [x] maak een game over scherm
@@ -22,15 +22,13 @@ Basis: uitleg, spelen, afgaan en punten
 - [ ] punten kunnen scoren
 - [x] uitlegscherm
 
-Uitbreiding: meer tegenstanders en final boss
+Uitbreiding: meer tegenstanders
 - [ ] teken 2e vijand
 - [ ] teken 3e vijand enz. enz.
 - [ ] laat de extra vijanden bewegen
 - [ ] laat de vijanden schieten
 - [ ] laat de vijanden verdwijnen als ze worden geraakt
-- [ ] teken de final boss 
-- [ ] laat de final boss bewegen
-- [ ] laat de final boss schieten
+
 
 ## Credits
 - Game template van het Emmauscollege Rotterdam https://github.com/emmauscollege/4HV-game-template
