@@ -49,7 +49,7 @@ var speed = 5;
  * Tekent het speelveld
  */
 var tekenVeld = function () {
-  fill("purple");
+  fill(200, 200, 200);
   rect(20, 20, width - 2 * 20, height - 2 * 20);
 };
 
@@ -111,16 +111,10 @@ var beweegVijand = function() {
     if (vijandX > 1200) {
         speed = -6;
     };
-     if (vijandX > 100 && vijandX < 1200) {
-        speed = random(-20, 6);
-    }
-    
-     /**
-      * if (vijandX > 1200) {
-        speed = -6
-    }
-    vijandX = vijandX + speed;
-    vijandY = 60; */
+    /**
+      if (vijandX > 100 && vijandX < 1200) {
+        speed = random(-6, 10);
+    } */
 
     vijandX = vijandX + speed;
     vijandY = 60; 
@@ -130,20 +124,53 @@ var beweegVijand = function() {
 /**
  * Updatet globale variabelen met positie van kogel of bal
  */
-var beweegKogel = function() {
+var kogels = []
+var lastkogelDT = Date.now()
+
+var beweegKogels = function(kogels = []) {
     if (keyIsDown(32)) {
-        tekenKogel(kogelX = spelerX, kogelY = spelerY);
-        
+      //tekenKogel(kogelX = spelerX, kogelY = spelerY)
+      if(kogels.length == 0 || (Date.now() - lastkogelDT) > 250 )
+      {
+        var kogel = [spelerX, spelerY]
+        kogels.push(kogel)
+        lastkogelDT = Date.now();
+      }
     };
-    kogelY = kogelY - 8;
+
+    kogels.forEach(
+        element => {element[1] = element[1] -8    
+    });
+
+    kogels.forEach(element => {
+        tekenKogel(element[0], element[1])
+    });
+    
 } ;
 
-var vijandKogel = function () {
-    if (spelStatus = SPELEN) {
-        tekenvijandKogel(vijandkogelX = vijandX, vijandkogelY = vijandY);
+var vijandkogels = []
+var lastkogelDT2 = Date.now()
+var vijandKogel = function(vijandkogels = []) {
+    
+    if (keyIsDown(32)) {
+        if (vijandkogels.length == 0 || (Date.now() - lastkogelDT2 > 250)) {
+            var vijandkogel = [vijandX, vijandY]
+            vijandkogels.push(vijandkogel)
+            lastkogelDT2 = Date.now();
+        }
+    
     };
-    vijandkogelY = vijandkogelY + 8;
-}
+
+    vijandkogels.forEach(
+        element => {element[1] = element[1] + 8
+        });
+    
+    vijandkogels.forEach(element => {
+        tekenvijandKogel(element[0], element[1])
+    });
+    
+    
+};
 
 
 /**
@@ -183,9 +210,8 @@ var checkVijandGeraakt = function() {
  * @returns {boolean} true als speler is geraakt
  */
 var checkSpelerGeraakt = function() {
-    
-  return false;
-};
+    return false;
+}
 
 
 /**
@@ -212,6 +238,7 @@ function setup() {
 }
 
 
+
 /**
  * draw
  * de code in deze functie wordt meerdere keren per seconde
@@ -234,11 +261,12 @@ function draw() {
     break;
 
     case SPELEN:
-      background(200, 10, 200);
+      background(20, 10, 20);
       tekenVeld();
       beweegVijand();
-      beweegKogel();
-      vijandKogel();
+
+      beweegKogels(kogels);
+      vijandKogel(vijandkogels);
       beweegSpeler();
       
       if (checkVijandGeraakt()) {
@@ -247,8 +275,7 @@ function draw() {
       }
       
       if (checkSpelerGeraakt()) {
-        // leven eraf of gezondheid verlagen
-        // eventueel: nieuwe speler maken
+        spelStatus = GAMEOVER;
       }
 
       
