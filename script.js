@@ -106,14 +106,24 @@ var tekenvijandKogel = function(x, y) {
 
 var beweegVijand = function() {
     if (vijandX < 100) {
-        speed = 6
+        speed = 6;
+    }
+    if (vijandX > 1200) {
+        speed = -6;
+    };
+     if (vijandX > 100 && vijandX < 1200) {
+        speed = random(-20, 6);
     }
     
-    if (vijandX > 1200) {
+     /**
+      * if (vijandX > 1200) {
         speed = -6
     }
     vijandX = vijandX + speed;
-    vijandY = 60;
+    vijandY = 60; */
+
+    vijandX = vijandX + speed;
+    vijandY = 60; 
 };
 
 
@@ -213,7 +223,7 @@ function draw() {
     case UITLEG:
     background('white');
     textSize(30);
-    text('Gebruik de pijltjes toetsen om de bewegen', 420, 300, 500, 400)
+    text('Gebruik de pijltjes toetsen om te bewegen', 420, 300, 500, 400)
     text('Gerbuik de spatie toets om te schieten', 400, 400, 700, 300)
     text('Klik enter om te starten', 500, 500, 500, 500)
 
@@ -262,3 +272,4 @@ function draw() {
       };
   }
 }
+
