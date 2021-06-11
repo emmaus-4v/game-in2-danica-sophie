@@ -38,7 +38,11 @@ var score = 0; // aantal behaalde punten
 
 var speed = 5;
 
+var kogels = [] 
+var lastkogelDT = Date.now()
 
+var vijandkogels = []
+var lastkogelDT2 = Date.now()
 
 /* ********************************************* */
 /*      functies die je gebruikt in je game      */
@@ -124,14 +128,12 @@ var beweegVijand = function() {
 /**
  * Updatet globale variabelen met positie van kogel of bal
  */
-var kogels = []
-var lastkogelDT = Date.now()
+
 
 var beweegKogels = function(kogels = []) {
     if (keyIsDown(32)) {
       //tekenKogel(kogelX = spelerX, kogelY = spelerY)
-      if(kogels.length == 0 || (Date.now() - lastkogelDT) > 250 )
-      {
+      if(kogels.length == 0 || (Date.now() - lastkogelDT) > 250 ) {
         var kogel = [spelerX, spelerY]
         kogels.push(kogel)
         lastkogelDT = Date.now();
@@ -139,37 +141,36 @@ var beweegKogels = function(kogels = []) {
     };
 
     kogels.forEach(
-        element => {element[1] = element[1] -8    
+        element => {
+            element[1] = element[1] -8    
     });
 
-    kogels.forEach(element => {
-        tekenKogel(element[0], element[1])
+    kogels.forEach(
+        element => {
+            tekenKogel(element[0], element[1])
     });
     
 } ;
 
-var vijandkogels = []
-var lastkogelDT2 = Date.now()
+
 var vijandKogel = function(vijandkogels = []) {
-    
     if (vijandX > 100) {
-        if (vijandkogels.length == 0 || (Date.now() - lastkogelDT2 > 250)) {
+        if (vijandkogels.length == 0 || (Date.now() - lastkogelDT2 > 400)) {
             var vijandkogel = [vijandX, vijandY]
             vijandkogels.push(vijandkogel)
             lastkogelDT2 = Date.now();
         }
-    
     };
 
     vijandkogels.forEach(
-        element => {element[1] = element[1] + 8
-        });
-    
-    vijandkogels.forEach(element => {
-        tekenvijandKogel(element[0], element[1])
+        element => {
+            element[1] = element[1] + 8
     });
     
-    
+    vijandkogels.forEach(
+        element => {
+            tekenvijandKogel(element[0], element[1])
+    });
 };
 
 
@@ -178,7 +179,6 @@ var vijandKogel = function(vijandkogels = []) {
  * Updatet globale variabele spelerX en spelerY
  */
 var beweegSpeler = function() {
-    
     if (keyIsDown(37) && spelerX > 20) {
         spelerX = spelerX - 6;
     }
@@ -210,6 +210,7 @@ var checkVijandGeraakt = function() {
  * @returns {boolean} true als speler is geraakt
  */
 var checkSpelerGeraakt = function() {
+    
     return false;
 }
 
