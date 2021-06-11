@@ -199,8 +199,9 @@ var beweegSpeler = function() {
  * @returns {boolean} true als vijand is geraakt
  */
 var checkVijandGeraakt = function() {
+    if (vijandX - kogelX < 50 && vijandX - kogelX > -50 && vijandY - kogelY < 50 && vijandY - kogelY > -50) {return true;}
 
-  return false;
+  else {return false;}
 };
 
 
@@ -270,7 +271,7 @@ function draw() {
       vijandKogel(vijandkogels);
       beweegSpeler();
       
-      if (checkVijandGeraakt()) {
+      if (checkVijandGeraakt()) { 
         // punten erbij
         // nieuwe vijand maken
       }
