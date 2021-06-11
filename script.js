@@ -25,9 +25,6 @@ var spelStatus = UITLEG;
 var spelerX = 1100; // x-positie van speler
 var spelerY = 500; // y-positie van speler
 
-var kogelX = 0;    // x-positie van kogel
-var kogelY = 0;    // y-positie van kogel
-
 var vijandkogelX = 0;   // x-positie van vijandkogel
 var vijandkogelY = 0;   // y-positie van vijandkogel
 
@@ -43,6 +40,7 @@ var lastkogelDT = Date.now()
 
 var vijandkogels = []
 var lastkogelDT2 = Date.now()
+
 
 /* ********************************************* */
 /*      functies die je gebruikt in je game      */
@@ -130,11 +128,13 @@ var beweegVijand = function() {
  */
 
 
-var beweegKogels = function(kogels = []) {
+var beweegKogels = function() {
     if (keyIsDown(32)) {
       //tekenKogel(kogelX = spelerX, kogelY = spelerY)
+      
       if(kogels.length == 0 || (Date.now() - lastkogelDT) > 250 ) {
         var kogel = [spelerX, spelerY]
+        
         kogels.push(kogel)
         lastkogelDT = Date.now();
       }
@@ -148,12 +148,15 @@ var beweegKogels = function(kogels = []) {
     kogels.forEach(
         element => {
             tekenKogel(element[0], element[1])
+            
     });
-    
+
+
 } ;
 
 
-var vijandKogel = function(vijandkogels = []) {
+
+var vijandKogel = function() {
     if (vijandX > 100) {
         if (vijandkogels.length == 0 || (Date.now() - lastkogelDT2 > 400)) {
             var vijandkogel = [vijandX, vijandY]
@@ -199,9 +202,27 @@ var beweegSpeler = function() {
  * @returns {boolean} true als vijand is geraakt
  */
 var checkVijandGeraakt = function() {
-    if (vijandX - kogelX < 50 && vijandX - kogelX > -50 && vijandY - kogelY < 50 && vijandY - kogelY > -50) {return true;}
+    
+    for(let index = 0; index < kogels.length; index++)
+    {
+        var geraakt = checkVijandGeraaktDoorDezeKogel(kogels[index][0], kogels[index][1]);
+        if(geraakt)
+        { 
+            //maak de kogels leeg, zodat het eindscherm niet meerdere keren getoond wordt
+            kogels = [];
+            return true;
+        }
+    }
+    return false;
+};
 
-  else {return false;}
+var checkVijandGeraaktDoorDezeKogel = function(kogelX, kogelY) {
+    if (vijandX - kogelX < 45 && vijandX - kogelX > -45 && vijandY - kogelY < 45 && vijandY - kogelY > -45) {
+        return true
+    ;}
+    else {
+      return false;
+    }
 };
 
 
@@ -211,18 +232,27 @@ var checkVijandGeraakt = function() {
  * @returns {boolean} true als speler is geraakt
  */
 var checkSpelerGeraakt = function() {
-    
+    for(let index = 0; index < vijandkogels.length; index++)
+    {
+        var geraakt = checkGeraaktDoorDezeKogel(vijandkogels[index][0], vijandkogels[index][1]);
+        if(geraakt)
+        { 
+            //maak de kogels leeg, zodat het eindscherm niet meerdere keren getoond wordt
+            vijandkogels = [];
+            return true;
+        }
+    }
     return false;
+    
 }
 
-
-/**
- * Zoekt uit of het spel is afgelopen
- * @returns {boolean} true als het spel is afgelopen
- */
-var checkGameOver = function() {
-    
-  return false;
+var checkGeraaktDoorDezeKogel = function(vijandkogelX, vijandkogelY) {
+    if (spelerX - vijandkogelX < 45 && spelerX - vijandkogelX > -45 && spelerY - vijandkogelY < 45 && spelerY - vijandkogelY > -45) {
+        return true
+    ;}
+    else {
+      return false;
+    }
 };
 
 
@@ -267,13 +297,13 @@ function draw() {
       tekenVeld();
       beweegVijand();
 
-      beweegKogels(kogels);
-      vijandKogel(vijandkogels);
+      beweegKogels();
+      vijandKogel();
       beweegSpeler();
       
       if (checkVijandGeraakt()) { 
-        // punten erbij
-        // nieuwe vijand maken
+        spelStatus = UITLEG;
+
       }
       
       if (checkSpelerGeraakt()) {
@@ -282,23 +312,24 @@ function draw() {
 
       
       tekenVijand(vijandX, vijandY);
-      tekenKogel(kogelX, kogelY);
       tekenSpeler(spelerX, spelerY);
       tekenvijandKogel(vijandkogelX, vijandkogelY);
 
-      if (checkGameOver()) {
-        spelStatus = GAMEOVER;
-      }
+     
       break;
 
       case GAMEOVER:
         background('white')
         text('GAMEOVER', 200, 200, 200, 200);
-      break;
+      
 
       if (keyIsDown(13)) {
           spelStatus = UITLEG
       };
+
+      break;
+
+      
   }
 }
 

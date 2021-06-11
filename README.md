@@ -15,11 +15,9 @@ Basis: uitleg, spelen, afgaan en punten
 - [x] beweeg vijand
 - [x] laat speler schieten
 - [x] laat vijand schieten
-- [ ] speler gaat dood als hij wordt geraakt
-- [ ] vijand verdwijnt als hij wordt geraakt
+- [x] speler gaat dood als hij wordt geraakt
+- [x] vijand verdwijnt als hij wordt geraakt
 - [x] maak een game over scherm
-- [ ] punten op scherm zetten
-- [ ] punten kunnen scoren
 - [x] uitlegscherm
 
 Uitbreiding: meer tegenstanders
