@@ -10,9 +10,6 @@
    voeg er je eigen code aan toe.
  */
 
-
-
-
 /* ********************************************* */
 /* globale variabelen die je gebruikt in je game */
 /* ********************************************* */
@@ -34,27 +31,38 @@ var vijandY = 60;   // y-positie van vijand
 
 var score = 0; // aantal behaalde punten
 
-var speed = 5;
+var speed = 5;  // snelheid van de vijand
+var speedV = 5;
 
-var kogels = [] 
-var lastkogelDT = Date.now()
+var kogels = []   // array van kogels
+var lastkogelDT = Date.now()   // tijd tussen het schieten van kogels
 
-var vijandkogels = []
-var lastkogelDT2 = Date.now()
+var vijandkogels = []   // array van vijandkogels
+var lastkogelDT2 = Date.now()   // tijd tussen het schieten van de vijandkogels
 
-var beginTijd = 0;
-var gametijdTekst = "";
+var vijandbeweging = Date.now()
+var vijandbewegingV = Date.now()
+
+var beginTijd = 0;   // begintijd van het spel
+var gametijdTekst = "";   // voor de tijd van de game 
+
+
 
 /* ********************************************* */
 /*      functies die je gebruikt in je game      */
 /* ********************************************* */
+
+
+/**
+ * reset de game aan het begin
+ */
 var resetGame = function()
 {
-    spelerX = 1100; // wordt gezet in resetfunctie
-    spelerY = 500; // wordt gezet in resetfunctie
+    spelerX = 1100; 
+    spelerY = 500; 
 
-    vijandX = 50;   // x-positie van vijand
-    vijandY = 60;   // y-positie van vijand
+    vijandX = random(100, 1200);  
+    vijandY = 60;   
 
     vijandkogels = [];
     kogels = [];
@@ -66,8 +74,9 @@ var resetGame = function()
  * Tekent het speelveld
  */
 var tekenVeld = function () {
+
   fill(200, 200, 200);
-  rect(20, 20, width - 2 * 20, height - 2 * 20);
+  rect(20, 20, width - 2 * 20, height -2 * 20) 
 };
 
 
@@ -91,7 +100,6 @@ var tekenVijand = function(x, y) {
 var tekenKogel = function(x, y) {
     fill ('black');
     ellipse (x, y, 10, 10);
-
 };
 
 
@@ -120,29 +128,52 @@ var tekenvijandKogel = function(x, y) {
 /**
  * Updatet globale variabelen met positie van vijand of tegenspeler
  */
-
 var beweegVijand = function() {
-    if (vijandX < 100) {
+    var randomspeed = random(0, 10)
+    
+    if (vijandX < 1200 && vijandX > 100 && Date.now() - vijandbeweging > 2000) {
+        if (randomspeed < 5) {
+            speed = 6
+        }
+        else {
+            speed = -6
+        }
+        vijandbeweging = Date.now()
+    }
+    else if (vijandX < 100) {
         speed = 6;
     }
-    if (vijandX > 1200) {
+    else if (vijandX > 1200) {
         speed = -6;
     };
-    /**
-      if (vijandX > 100 && vijandX < 1200) {
-        speed = random(-6, 10);
-    } */
 
     vijandX = vijandX + speed;
-    vijandY = 60; 
+    
+    var randomspeed2 = random(0, 10)
+    if (vijandY < 300 && vijandY > 50 && Date.now() - vijandbewegingV > 2000) {
+        if (randomspeed2 < 5) {
+            speedV = 6
+        }
+        else {
+            speedV = -6
+        }
+        vijandbewegingV = Date.now()
+    }
+    else if (vijandY < 50) {
+        speedV = 6;
+    }
+    else if (vijandY > 300) {
+        speedV = -6;
+    };
+
+    vijandY = vijandY + speedV;
+    
 };
 
 
 /**
  * Updatet globale variabelen met positie van kogel of bal
  */
-
-
 var beweegKogels = function() {
     if (keyIsDown(32)) {
       //tekenKogel(kogelX = spelerX, kogelY = spelerY)
@@ -163,14 +194,12 @@ var beweegKogels = function() {
     kogels.forEach(
         element => {
             tekenKogel(element[0], element[1])
-            
     });
-
-
 } ;
 
-
-
+/**
+ * update globale variabelen van de kogel van de vijand
+ */
 var vijandKogel = function() {
     if (vijandX > 100) {
         if (vijandkogels.length == 0 || (Date.now() - lastkogelDT2 > 400)) {
@@ -270,6 +299,10 @@ var checkGeraaktDoorDezeKogel = function(vijandkogelX, vijandkogelY) {
     }
 };
 
+
+/**
+ * omrekenen van de millisecondes voor de totale tijd van de game bij overwinning
+ */
 var gameTijdNaarMillisecTekst = function(gametijdMS) {
   var ms = gametijdMS % 1000;
   gametijdMS = gametijdMS - ms;
@@ -279,7 +312,6 @@ var gameTijdNaarMillisecTekst = function(gametijdMS) {
   
   return overwinningTekst;
 }
-
 
 
 /**
@@ -294,7 +326,6 @@ function setup() {
   // Kleur de achtergrond blauw, zodat je het kunt zien
   background('blue');
 }
-
 
 
 /**
@@ -317,8 +348,7 @@ function draw() {
         if (keyIsDown(13)) {
             resetGame();
             spelStatus = SPELEN
-
-    };
+        };
 
     break;
 
@@ -345,7 +375,7 @@ function draw() {
         tekenSpeler(spelerX, spelerY);
         tekenvijandKogel(vijandkogelX, vijandkogelY);
         
-        break;
+    break;
 
     case GAMEOVER:
         background('white')
@@ -357,9 +387,9 @@ function draw() {
           spelStatus = UITLEG
         };
 
-      break;
+    break;
 
-      case OVERWINNING:
+    case OVERWINNING:
         var gameTijd = Date.now() - beginTijd;
        
         if(gametijdTekst == "")
@@ -378,7 +408,7 @@ function draw() {
             spelStatus = UITLEG
         };
 
-      break;
+    break;
   }
 }
 
