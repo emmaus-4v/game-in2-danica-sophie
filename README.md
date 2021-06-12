@@ -20,14 +20,6 @@ Basis: uitleg, spelen, afgaan en punten
 - [x] maak een game over scherm
 - [x] uitlegscherm
 
-Uitbreiding: meer tegenstanders
-- [ ] teken 2e vijand
-- [ ] teken 3e vijand enz. enz.
-- [ ] laat de extra vijanden bewegen
-- [ ] laat de vijanden schieten
-- [ ] laat de vijanden verdwijnen als ze worden geraakt
-
-
 ## Credits
 - Game template van het Emmauscollege Rotterdam https://github.com/emmauscollege/4HV-game-template
 - manifest.json https://codelabs.developers.google.com/codelabs/your-first-pwapp/#3

@@ -15,9 +15,11 @@
 /* ********************************************* */
 
 const UITLEG = 0;
-const SPELEN = 1;
-const GAMEOVER = 2;
-const OVERWINNING = 3;
+const SPELENMAKKELIJK = 1;
+const SPELENMEDIUM = 2;
+const SPELENMOEILIJK = 3;
+const GAMEOVER = 4;
+const OVERWINNING = 5;
 var spelStatus = UITLEG;
 
 var spelerX = 0; // wordt gezet in resetfunctie
@@ -32,7 +34,7 @@ var vijandY = 60;   // y-positie van vijand
 var score = 0; // aantal behaalde punten
 
 var speed = 5;  // snelheid van de vijand
-var speedV = 5;
+var speedVerticaal = 5;
 
 var kogels = []   // array van kogels
 var lastkogelDT = Date.now()   // tijd tussen het schieten van kogels
@@ -58,7 +60,7 @@ var gametijdTekst = "";   // voor de tijd van de game
  */
 var resetGame = function()
 {
-    spelerX = 1100; 
+    spelerX = 600; 
     spelerY = 500; 
 
     vijandX = random(100, 1200);  
@@ -128,23 +130,23 @@ var tekenvijandKogel = function(x, y) {
 /**
  * Updatet globale variabelen met positie van vijand of tegenspeler
  */
-var beweegVijand = function() {
+var beweegVijand = function(vijandsnelheid, vijandwild) {
     var randomspeed = random(0, 10)
     
-    if (vijandX < 1200 && vijandX > 100 && Date.now() - vijandbeweging > 2000) {
+    if (vijandX < 1200 && vijandX > 100 && Date.now() - vijandbeweging > vijandwild) {
         if (randomspeed < 5) {
-            speed = 6
+            speed = vijandsnelheid
         }
         else {
-            speed = -6
+            speed = -vijandsnelheid
         }
         vijandbeweging = Date.now()
     }
     else if (vijandX < 100) {
-        speed = 6;
+        speed = vijandsnelheid;
     }
     else if (vijandX > 1200) {
-        speed = -6;
+        speed = -vijandsnelheid;
     };
 
     vijandX = vijandX + speed;
@@ -152,21 +154,21 @@ var beweegVijand = function() {
     var randomspeed2 = random(0, 10)
     if (vijandY < 300 && vijandY > 50 && Date.now() - vijandbewegingV > 2000) {
         if (randomspeed2 < 5) {
-            speedV = 6
+            speedVerticaal = vijandsnelheid
         }
         else {
-            speedV = -6
+            speedVerticaal = -vijandsnelheid
         }
         vijandbewegingV = Date.now()
     }
     else if (vijandY < 50) {
-        speedV = 6;
+        speedVerticaal = vijandsnelheid;
     }
     else if (vijandY > 300) {
-        speedV = -6;
+        speedVerticaal = -vijandsnelheid;
     };
 
-    vijandY = vijandY + speedV;
+    vijandY = vijandY + speedVerticaal;
     
 };
 
@@ -200,9 +202,9 @@ var beweegKogels = function() {
 /**
  * update globale variabelen van de kogel van de vijand
  */
-var vijandKogel = function() {
+var vijandKogel = function(kogelsnelheid) {
     if (vijandX > 100) {
-        if (vijandkogels.length == 0 || (Date.now() - lastkogelDT2 > 400)) {
+        if (vijandkogels.length == 0 || (Date.now() - lastkogelDT2 > kogelsnelheid)) {
             var vijandkogel = [vijandX, vijandY]
             vijandkogels.push(vijandkogel)
             lastkogelDT2 = Date.now();
@@ -340,25 +342,34 @@ function draw() {
         background('white');
         textSize(30);
         fill(0, 0, 0);
-        text('Gebruik de pijltjes toetsen om te bewegen', 420, 300, 500, 400)
-        text('Gerbuik de spatie toets om te schieten', 400, 400, 700, 300)
-        text('Klik enter om te starten', 500, 500, 500, 500)
+        text('Gebruik de pijltjes toetsen om te bewegen', 400, 150, 700, 400)
+        text('Gerbuik de spatie toets om te schieten', 400, 250, 700, 300)
+        text('Klik 1 voor moeilijkheidsgraad makkelijk', 400, 350, 700, 500)
+        text('Klik 2 voor moeilijkheidsgraad medium', 400, 425, 700, 500)
+        text('Klik 3 voor moeilijkheidsgraad moeilijk', 400, 500, 700, 500)
 
-
-        if (keyIsDown(13)) {
+        if (keyIsDown(49)) {
             resetGame();
-            spelStatus = SPELEN
+            spelStatus = SPELENMAKKELIJK;
+        };
+        if (keyIsDown(50)) {
+            resetGame();
+            spelStatus = SPELENMEDIUM;
+        };
+        if (keyIsDown(51)) {
+            resetGame();
+            spelStatus = SPELENMOEILIJK;
         };
 
     break;
 
-    case SPELEN:
+    case SPELENMAKKELIJK:
         background(20, 10, 20);
         tekenVeld();
-        beweegVijand();
+        beweegVijand(6, 2000);
 
         beweegKogels();
-        vijandKogel();
+        vijandKogel(300);
         beweegSpeler();
         
         if (checkVijandGeraakt()) { 
@@ -370,15 +381,60 @@ function draw() {
             spelStatus = GAMEOVER;
         }
 
-        
         tekenVijand(vijandX, vijandY);
         tekenSpeler(spelerX, spelerY);
-        tekenvijandKogel(vijandkogelX, vijandkogelY);
         
+    break;
+
+    case SPELENMEDIUM:
+        background(20, 10, 20);
+        tekenVeld();
+        beweegVijand(7, 1700);
+
+        beweegKogels();
+        vijandKogel(250);
+        beweegSpeler();
+        
+        if (checkVijandGeraakt()) { 
+            spelStatus = OVERWINNING;
+
+        }
+        
+        if (checkSpelerGeraakt()) {
+            spelStatus = GAMEOVER;
+        }
+
+        tekenVijand(vijandX, vijandY);
+        tekenSpeler(spelerX, spelerY);
+
+    break;
+
+    case SPELENMOEILIJK:
+        background(20, 10, 20);
+        tekenVeld();
+        beweegVijand(8, 1200);
+
+        beweegKogels();
+        vijandKogel(200);
+        beweegSpeler();
+        
+        if (checkVijandGeraakt()) { 
+            spelStatus = OVERWINNING;
+
+        }
+        
+        if (checkSpelerGeraakt()) {
+            spelStatus = GAMEOVER;
+        }
+
+        tekenVijand(vijandX, vijandY);
+        tekenSpeler(spelerX, spelerY);
+
     break;
 
     case GAMEOVER:
         background('white')
+        fill(250, 0, 0)
         text('GAMEOVER', 200, 200, 200, 200);
         text('Druk op control om nog een keer te spelen', 200, 300, 400, 600);
       
