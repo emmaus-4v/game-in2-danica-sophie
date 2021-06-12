@@ -23,8 +23,8 @@ const GAMEOVER = 2;
 const OVERWINNING = 3;
 var spelStatus = UITLEG;
 
-var spelerX = 1100; // x-positie van speler
-var spelerY = 500; // y-positie van speler
+var spelerX = 0; // wordt gezet in resetfunctie
+var spelerY = 0; // wordt gezet in resetfunctie
 
 var vijandkogelX = 0;   // x-positie van vijandkogel
 var vijandkogelY = 0;   // y-positie van vijandkogel
@@ -44,12 +44,23 @@ var lastkogelDT2 = Date.now()
 
 var beginTijd = 0;
 var gametijdTekst = "";
-var record = document.cookie;
 
 /* ********************************************* */
 /*      functies die je gebruikt in je game      */
 /* ********************************************* */
+var resetGame = function()
+{
+    spelerX = 1100; // wordt gezet in resetfunctie
+    spelerY = 500; // wordt gezet in resetfunctie
 
+    vijandX = 50;   // x-positie van vijand
+    vijandY = 60;   // y-positie van vijand
+
+    vijandkogels = [];
+    kogels = [];
+    beginTijd = Date.now();
+    gametijdTekst = "";
+}
 
 /**
  * Tekent het speelveld
@@ -259,32 +270,17 @@ var checkGeraaktDoorDezeKogel = function(vijandkogelX, vijandkogelY) {
     }
 };
 
-var gameTijdNaarMillisecTekst = function(gametijdMS, recordMS) {
+var gameTijdNaarMillisecTekst = function(gametijdMS) {
   var ms = gametijdMS % 1000;
   gametijdMS = gametijdMS - ms;
   var secs = gametijdMS / 1000;
   
   var overwinningTekst =  "Je hebt het spel gewonnen in "  + secs + " secondes en " + ms + " milisecondes";
-  if(gametijdMS == recordMS)
-  {
-     overwinningTekst = overwinningTekst  + " Dat is een evenaring van je record!!";
-     overwinningTekst = "gelijk";
-  }
-
-  if(gametijdMS < recordMS )
-  {
-      overwinningTekst = overwinningTekst  + " Dat is een nieuw record!!!!!";
-      overwinningTekst = "sneller";
-  }
-
-  if(gametijdMS > recordMS )
-  {
-      overwinningTekst = overwinningTekst  + " Je hebt eerder het spel sneller gewonnen. Probeer het nog een keer!";
-      overwinningTekst = "langzamer";
-  }
   
   return overwinningTekst;
 }
+
+
 
 /**
  * setup
@@ -310,83 +306,77 @@ function draw() {
   switch (spelStatus) {
 
     case UITLEG:
-    background('white');
-    textSize(30);
-    text('Gebruik de pijltjes toetsen om te bewegen', 420, 300, 500, 400)
-    text('Gerbuik de spatie toets om te schieten', 400, 400, 700, 300)
-    text('Klik enter om te starten', 500, 500, 500, 500)
+        background('white');
+        textSize(30);
+        fill(0, 0, 0);
+        text('Gebruik de pijltjes toetsen om te bewegen', 420, 300, 500, 400)
+        text('Gerbuik de spatie toets om te schieten', 400, 400, 700, 300)
+        text('Klik enter om te starten', 500, 500, 500, 500)
 
-    if (keyIsDown(13)) {
-        spelStatus = SPELEN
+
+        if (keyIsDown(13)) {
+            resetGame();
+            spelStatus = SPELEN
+
     };
 
     break;
 
     case SPELEN:
-    if (beginTijd == 0) {
-        beginTijd = Date.now();
-    }
+        background(20, 10, 20);
+        tekenVeld();
+        beweegVijand();
 
-      background(20, 10, 20);
-      tekenVeld();
-      beweegVijand();
+        beweegKogels();
+        vijandKogel();
+        beweegSpeler();
+        
+        if (checkVijandGeraakt()) { 
+            spelStatus = OVERWINNING;
 
-      beweegKogels();
-      vijandKogel();
-      beweegSpeler();
-      
-      if (checkVijandGeraakt()) { 
-        spelStatus = OVERWINNING;
+        }
+        
+        if (checkSpelerGeraakt()) {
+            spelStatus = GAMEOVER;
+        }
 
-      }
-      
-      if (checkSpelerGeraakt()) {
-        spelStatus = GAMEOVER;
-      }
+        
+        tekenVijand(vijandX, vijandY);
+        tekenSpeler(spelerX, spelerY);
+        tekenvijandKogel(vijandkogelX, vijandkogelY);
+        
+        break;
 
-      
-      tekenVijand(vijandX, vijandY);
-      tekenSpeler(spelerX, spelerY);
-      tekenvijandKogel(vijandkogelX, vijandkogelY);
-
-     
-      break;
-
-      case GAMEOVER:
+    case GAMEOVER:
         background('white')
         text('GAMEOVER', 200, 200, 200, 200);
+        text('Druk op control om nog een keer te spelen', 200, 300, 400, 600);
       
-
-      if (keyIsDown(13)) {
+        //druk op ctrl om verder te gaan
+        if (keyIsDown(17)) {
           spelStatus = UITLEG
-      };
+        };
 
       break;
 
       case OVERWINNING:
         var gameTijd = Date.now() - beginTijd;
-        var recordMS = 0
-        if(record != "")
-        {
-            recordMS = parseInt(record)
-        }
-
-        text(gametijdTekst, 200, 300, 400, 600);
-        
+       
         if(gametijdTekst == "")
         {
-            gametijdTekst = gameTijdNaarMillisecTekst(gameTijd,recordMS);
+            gametijdTekst = gameTijdNaarMillisecTekst(gameTijd);
         }
 
-        text(gametijdTekst, 200, 400, 400, 600);
         background('white')
         fill(0, 200, 200);
         text('YOU DID IT :)', 200, 200, 200, 200);
-        text(gametijdTekst, 200, 500, 400, 600);
+        text(gametijdTekst, 200, 300, 400, 600);
+        text('Druk op control om nog een keer te spelen', 200, 450, 400, 600);
 
-      if (keyIsDown(13)) {
-          spelStatus = UITLEG
-      };
+        //druk op ctrl om verder te gaan
+        if (keyIsDown(17)) {
+            spelStatus = UITLEG
+        };
 
       break;
   }
