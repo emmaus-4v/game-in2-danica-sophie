@@ -20,6 +20,7 @@
 const UITLEG = 0;
 const SPELEN = 1;
 const GAMEOVER = 2;
+const OVERWINNING = 3;
 var spelStatus = UITLEG;
 
 var spelerX = 1100; // x-positie van speler
@@ -41,6 +42,9 @@ var lastkogelDT = Date.now()
 var vijandkogels = []
 var lastkogelDT2 = Date.now()
 
+var beginTijd = 0;
+var gametijdTekst = "";
+var record = document.cookie;
 
 /* ********************************************* */
 /*      functies die je gebruikt in je game      */
@@ -255,6 +259,32 @@ var checkGeraaktDoorDezeKogel = function(vijandkogelX, vijandkogelY) {
     }
 };
 
+var gameTijdNaarMillisecTekst = function(gametijdMS, recordMS) {
+  var ms = gametijdMS % 1000;
+  gametijdMS = gametijdMS - ms;
+  var secs = gametijdMS / 1000;
+  
+  var overwinningTekst =  "Je hebt het spel gewonnen in "  + secs + " secondes en " + ms + " milisecondes";
+  if(gametijdMS == recordMS)
+  {
+     overwinningTekst = overwinningTekst  + " Dat is een evenaring van je record!!";
+     overwinningTekst = "gelijk";
+  }
+
+  if(gametijdMS < recordMS )
+  {
+      overwinningTekst = overwinningTekst  + " Dat is een nieuw record!!!!!";
+      overwinningTekst = "sneller";
+  }
+
+  if(gametijdMS > recordMS )
+  {
+      overwinningTekst = overwinningTekst  + " Je hebt eerder het spel sneller gewonnen. Probeer het nog een keer!";
+      overwinningTekst = "langzamer";
+  }
+  
+  return overwinningTekst;
+}
 
 /**
  * setup
@@ -293,6 +323,10 @@ function draw() {
     break;
 
     case SPELEN:
+    if (beginTijd == 0) {
+        beginTijd = Date.now();
+    }
+
       background(20, 10, 20);
       tekenVeld();
       beweegVijand();
@@ -302,7 +336,7 @@ function draw() {
       beweegSpeler();
       
       if (checkVijandGeraakt()) { 
-        spelStatus = UITLEG;
+        spelStatus = OVERWINNING;
 
       }
       
@@ -329,7 +363,32 @@ function draw() {
 
       break;
 
-      
+      case OVERWINNING:
+        var gameTijd = Date.now() - beginTijd;
+        var recordMS = 0
+        if(record != "")
+        {
+            recordMS = parseInt(record)
+        }
+
+        text(gametijdTekst, 200, 300, 400, 600);
+        
+        if(gametijdTekst == "")
+        {
+            gametijdTekst = gameTijdNaarMillisecTekst(gameTijd,recordMS);
+        }
+
+        text(gametijdTekst, 200, 400, 400, 600);
+        background('white')
+        fill(0, 200, 200);
+        text('YOU DID IT :)', 200, 200, 200, 200);
+        text(gametijdTekst, 200, 500, 400, 600);
+
+      if (keyIsDown(13)) {
+          spelStatus = UITLEG
+      };
+
+      break;
   }
 }
 
