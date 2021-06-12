@@ -48,7 +48,8 @@ var vijandbewegingV = Date.now()
 var beginTijd = 0;   // begintijd van het spel
 var gametijdTekst = "";   // voor de tijd van de game 
 
-
+var bgImg;
+var kogelImg;
 
 /* ********************************************* */
 /*      functies die je gebruikt in je game      */
@@ -76,9 +77,9 @@ var resetGame = function()
  * Tekent het speelveld
  */
 var tekenVeld = function () {
-
-  fill(200, 200, 200);
-  rect(20, 20, width - 2 * 20, height -2 * 20) 
+    image(bgImg, 0, 0, width, height)
+  // fill(200, 200, 200);
+  // rect(20, 20, width - 2 * 20, height -2 * 20) 
 };
 
 
@@ -100,6 +101,7 @@ var tekenVijand = function(x, y) {
  * @param {number} y y-coördinaat
  */
 var tekenKogel = function(x, y) {
+    // image(kogelImg, x, y, 10, 10);
     fill ('black');
     ellipse (x, y, 10, 10);
 };
@@ -293,7 +295,7 @@ var checkSpelerGeraakt = function() {
 }
 
 var checkGeraaktDoorDezeKogel = function(vijandkogelX, vijandkogelY) {
-    if (spelerX - vijandkogelX < 45 && spelerX - vijandkogelX > -45 && spelerY - vijandkogelY < 45 && spelerY - vijandkogelY > -45) {
+    if (spelerX - vijandkogelX < 38 && spelerX - vijandkogelX > -38 && spelerY - vijandkogelY < 38 && spelerY - vijandkogelY > -38) {
         return true
     ;}
     else {
@@ -313,6 +315,13 @@ var gameTijdNaarMillisecTekst = function(gametijdMS) {
   var overwinningTekst =  "Je hebt het spel gewonnen in "  + secs + " secondes en " + ms + " milisecondes";
   
   return overwinningTekst;
+}
+
+function preload() {
+    // @ts-ignore
+    bgImg = loadImage('Afbeeldingen/candyland.jpg') 
+    // @ts-ignore
+    // kogelImg = loadImage('Afbeeldingen/image0.jpeg')
 }
 
 
