@@ -348,7 +348,9 @@ function draw() {
   switch (spelStatus) {
 
     case UITLEG:
-        background('white');
+        image(bgImg, 0, 0, width, height);
+        fill('white')
+        rect(80, 80, width - 2 * 80, height -2 * 80) 
         textSize(30);
         fill(0, 0, 0);
         text('Gebruik de pijltjes toetsen om te bewegen', 400, 150, 700, 400)
@@ -442,7 +444,9 @@ function draw() {
     break;
 
     case GAMEOVER:
-        background('white')
+        image(bgImg, 0, 0, width, height);
+        fill('white')
+        rect(80, 80, width - 2 * 80, height -2 * 80) 
         fill(250, 0, 0)
         text('GAMEOVER', 200, 200, 200, 200);
         text('Druk op control om nog een keer te spelen', 200, 300, 400, 600);
@@ -462,7 +466,9 @@ function draw() {
             gametijdTekst = gameTijdNaarMillisecTekst(gameTijd);
         }
 
-        background('white')
+        image(bgImg, 0, 0, width, height);
+        fill('white')
+        rect(80, 80, width - 2 * 80, height -2 * 80) 
         fill(0, 200, 200);
         text('YOU DID IT :)', 200, 200, 200, 200);
         text(gametijdTekst, 200, 300, 400, 600);
