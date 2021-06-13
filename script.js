@@ -14,13 +14,13 @@
 /* globale variabelen die je gebruikt in je game */
 /* ********************************************* */
 
-const UITLEG = 0;
-const SPELENMAKKELIJK = 1;
-const SPELENMEDIUM = 2;
-const SPELENMOEILIJK = 3;
-const GAMEOVER = 4;
-const OVERWINNING = 5;
-var spelStatus = UITLEG;
+const UITLEG = 0;   // uitlegscherm
+const SPELENMAKKELIJK = 1;   // moeilijkheidsgraad makkelijk
+const SPELENMEDIUM = 2;   // moeilijkheidsgraad medium
+const SPELENMOEILIJK = 3;   // moeilijkheidsgraad moeilijk
+const GAMEOVER = 4;   // gameover scherm
+const OVERWINNING = 5;   // overwinningsscherm
+var spelStatus = UITLEG;   // begin van de game
 
 var spelerX = 0; // wordt gezet in resetfunctie
 var spelerY = 0; // wordt gezet in resetfunctie
@@ -42,19 +42,17 @@ var lastkogelDT = Date.now()   // tijd tussen het schieten van kogels
 var vijandkogels = []   // array van vijandkogels
 var lastkogelDT2 = Date.now()   // tijd tussen het schieten van de vijandkogels
 
-var vijandbeweging = Date.now()
-var vijandbewegingV = Date.now()
+var vijandbeweging = Date.now()   // tijd tussen het veranderen in richting van de vijand horizontaal
+var vijandbewegingV = Date.now()   // tijd tussen het veranderen in richting van de vijand verticaal
 
 var beginTijd = 0;   // begintijd van het spel
-var gametijdTekst = "";   // voor de tijd van de game 
+var gametijdTekst = "";   // tekst voor de tijd van de game 
 
-var bgImg;
-var kogelImg;
+var bgImg;   // achtergrond plaatje
 
 /* ********************************************* */
 /*      functies die je gebruikt in je game      */
 /* ********************************************* */
-
 
 /**
  * reset de game aan het begin
@@ -71,15 +69,14 @@ var resetGame = function()
     kogels = [];
     beginTijd = Date.now();
     gametijdTekst = "";
-}
+};
+
 
 /**
  * Tekent het speelveld
  */
 var tekenVeld = function () {
     image(bgImg, 0, 0, width, height)
-  // fill(200, 200, 200);
-  // rect(20, 20, width - 2 * 20, height -2 * 20) 
 };
 
 
@@ -91,7 +88,6 @@ var tekenVeld = function () {
 var tekenVijand = function(x, y) {
     fill ('black');
     ellipse (x, y, 50, 50);
-
 };
 
 
@@ -201,6 +197,7 @@ var beweegKogels = function() {
     });
 } ;
 
+
 /**
  * update globale variabelen van de kogel van de vijand
  */
@@ -250,7 +247,6 @@ var beweegSpeler = function() {
  * @returns {boolean} true als vijand is geraakt
  */
 var checkVijandGeraakt = function() {
-    
     for(let index = 0; index < kogels.length; index++)
     {
         var geraakt = checkVijandGeraaktDoorDezeKogel(kogels[index][0], kogels[index][1]);
@@ -291,7 +287,6 @@ var checkSpelerGeraakt = function() {
         }
     }
     return false;
-    
 }
 
 var checkGeraaktDoorDezeKogel = function(vijandkogelX, vijandkogelY) {
@@ -317,12 +312,14 @@ var gameTijdNaarMillisecTekst = function(gametijdMS) {
   return overwinningTekst;
 }
 
+
+/**
+ * het laden van het achtergrondplaatje
+ */
 function preload() {
     // @ts-ignore
     bgImg = loadImage('Afbeeldingen/candyland.jpg') 
-    // @ts-ignore
-    // kogelImg = loadImage('Afbeeldingen/image0.jpeg')
-}
+};
 
 
 /**
@@ -336,7 +333,7 @@ function setup() {
 
   // Kleur de achtergrond blauw, zodat je het kunt zien
   background('blue');
-}
+};
 
 
 /**
@@ -481,5 +478,5 @@ function draw() {
 
     break;
   }
-}
+};
 
